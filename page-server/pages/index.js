@@ -1,9 +1,12 @@
-const Index =  ({requestPath}) => (
-  <div>Hello from {requestPath}</div>
-);
+import App from '../components/App'
+import Header from '../components/Header'
+import Submit from '../components/Submit'
+import PostList from '../components/PostList'
 
-Index.getInitialProps = async({req}) => {
-  return {requestPath: req.customProps.requestPath};
-};
-
-export default Index;
+export default () => (
+  <App>
+    <Header />
+    <Submit />
+    <PostList />
+  </App>
+)

@@ -21,9 +21,10 @@ const start = async () => {
     await nextApp.prepare();
 
     app.get('*', (req, res) => {
-      if (!isInternalPath(req.path)) {
-        req.customProps = {requestPath: parseUrl(req).pathname};
-        nextApp.render(req, res, '/');
+      const requestPath = req.path;
+      if (!isInternalPath(requestPath) && requestPath.endsWith('.html')) {
+        req.customProps = {requestPath};
+        nextApp.render(req, res, '/dynamic');
       } else {
         handle(req, res)
       }
