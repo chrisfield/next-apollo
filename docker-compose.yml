@@ -1,0 +1,15 @@
+version: '3'
+services:
+  db:
+    image: mongo
+    volumes:
+      - ./db:/data/db   
+  api:
+    build: ./api
+    env_file: ./api/.env
+    ports:
+      - 3112:3112    
+  page-server:
+    build: ./page-server
+    env_file: ./page-server/.env
+    
