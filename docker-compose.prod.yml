@@ -1,0 +1,7 @@
+version: '3'
+services:
+  page-server:
+    build: ./page-server
+    env_file: ./page-server/.env.docker
+    ports:
+      - 3102:3102    

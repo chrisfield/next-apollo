@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "docker-compose up --build"
+    "bootstrap": "npm install && (cd page-server && npm install)",
+    "dev": "concurrently \"docker-compose up --build\" \"cd page-server && npm run dev\" ",
+    "start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^4.0.1"
+  }
 }

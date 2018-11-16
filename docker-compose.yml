@@ -8,8 +8,4 @@ services:
     build: ./api
     env_file: ./api/.env
     ports:
-      - 3112:3112    
-  page-server:
-    build: ./page-server
-    env_file: ./page-server/.env
-    
+      - 3112:3112
