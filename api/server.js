@@ -2,6 +2,7 @@ require('dotenv').config();
 const server = require('express')();
 const { MongoClient, ObjectId } = require('mongodb');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const start = async () => {
 
@@ -12,11 +13,32 @@ const start = async () => {
 
   const Pages = db.collection('Pages');
 
+  server.use(cors());
+
   server.use(bodyParser.urlencoded({ extended: true }));
+  server.use(bodyParser.json());
 
   server.post('/page', async (req, res) => {
     await Pages.insertOne(req.body);
     res.json({});
+  });
+
+
+  server.post('/login', (req, res) => {
+    const {username, password, urlSuccess, urlError} = req.body;
+    const loginStatus = username === password; 
+    const authToken = loginStatus? `${username}abc`: '';
+    if ( req.header('Content-Type') === 'application/json') {
+      res.json({authToken});
+    } else {
+      res.cookie('authToken', authToken);
+      if (loginStatus) {
+        res.writeHead(301, {Location: urlSuccess})
+      } else {
+        res.writeHead(301, {Location: urlError})
+      }
+      res.send();
+    }
   });
 
 
