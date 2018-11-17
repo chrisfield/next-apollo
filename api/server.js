@@ -25,22 +25,11 @@ const start = async () => {
 
 
   server.post('/login', (req, res) => {
-    const {username, password, urlSuccess, urlError} = req.body;
+    const {username, password} = req.body;
     const loginStatus = username === password; 
     const authToken = loginStatus? `${username}abc`: '';
-    if ( req.header('Content-Type') === 'application/json') {
-      res.json({authToken});
-    } else {
-      res.cookie('authToken', authToken);
-      if (loginStatus) {
-        res.writeHead(301, {Location: urlSuccess})
-      } else {
-        res.writeHead(301, {Location: urlError})
-      }
-      res.send();
-    }
+    res.json({authToken});
   });
-
 
   server.delete('/page/:id', async (req, res) => {
     const status = await Pages.deleteOne({_id: ObjectId(req.params.id)});

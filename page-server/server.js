@@ -6,6 +6,7 @@ console.log('NODE_ENV', process.env.NODE_ENV);
 const nextApp = next({dev: process.env.NODE_ENV !== 'production'});
 const handle = nextApp.getRequestHandler();
 const bodyParser = require('body-parser');
+const Auth = require('./lib/auth-export'); 
 const cors = require('cors');
 
 //const cookieParser = require('cookie-parser');
@@ -28,17 +29,26 @@ const start = async () => {
   try {
     await nextApp.prepare();
 
-
-    app.post('/login', (req, res) => {
-      const {username, password} = req.body;
-      const loginStatus = username === password; 
-      res.cookie('credentials', 'userData' + loginStatus);
-      if (loginStatus) {
-        res.writeHead(301, {Location: `/about`})
+    app.post('/login', async (req, res) => {
+      const {username, password, urlSuccess, urlError} = req.body;
+      const auth = Auth('http://localhost:3112/login');
+      const authData = await auth({username, password});
+      const authToken = authData.authToken;
+      if (authToken) {
+        res.cookie('authToken', authToken);
       } else {
-        res.writeHead(301, {Location: `/login-form?error=Y`})
+        res.clearCookie('authToken');
       }
-      res.send();
+      if ( req.header('Content-Type') === 'application/json') {
+        res.json({authToken});
+      } else {
+        if (authToken) {
+          res.writeHead(301, {Location: urlSuccess})
+        } else {
+          res.writeHead(301, {Location: urlError})
+        }
+        res.send();
+      }
     });
 
     app.get('*', (req, res) => {
