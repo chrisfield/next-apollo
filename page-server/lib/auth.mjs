@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-unfetch';
+
 const Auth = authUrl => (
   async ({username, password}) => {
     const response = await fetch(authUrl, {
@@ -15,5 +17,5 @@ const Auth = authUrl => (
   }
 );
 
-module.exports = Auth;
+export default Auth;
 

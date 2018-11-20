@@ -1,13 +1,15 @@
-require('dotenv').config();
-const next = require('next');
-const express = require('express');
-var parseUrl = require('parseurl');
-console.log('NODE_ENV', process.env.NODE_ENV);
+import Dotenv from 'dotenv';
+import next from 'next';
+import express from 'express';
+import Auth from './lib/auth.mjs'; 
+import bodyParser  from 'body-parser';
+import cors from 'cors';
+
 const nextApp = next({dev: process.env.NODE_ENV !== 'production'});
 const handle = nextApp.getRequestHandler();
-const bodyParser = require('body-parser');
-const Auth = require('./lib/auth-export'); 
-const cors = require('cors');
+
+
+const dotenv = Dotenv.config();
 
 //const cookieParser = require('cookie-parser');
 
