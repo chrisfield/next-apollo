@@ -2,11 +2,11 @@
   "name": "page-server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.mjs",
+  "main": "server.js",
   "scripts": {
-    "dev": "node --experimental-modules .",
+    "dev": "node .",
     "build": "next build",
-    "start": "node --experimental-modules ."
+    "start": "node ."
   },
   "keywords": [],
   "author": "",

@@ -1,20 +1,15 @@
-import Dotenv from 'dotenv';
-import next from 'next';
-import express from 'express';
-import Auth from './lib/auth.mjs'; 
-import bodyParser  from 'body-parser';
-import cors from 'cors';
+const dotenv = require('dotenv').config();
+const next = require('next');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const nextApp = next({dev: process.env.NODE_ENV !== 'production'});
 const handle = nextApp.getRequestHandler();
 
-
-const dotenv = Dotenv.config();
-
-//const cookieParser = require('cookie-parser');
-
 const app = express();
-//app.use(cookieParser());
+app.use(cookieParser());
 
 app.get('page.json', (req, res) => {
   res.json({name: 'value from page.json route'});
@@ -31,26 +26,8 @@ const start = async () => {
   try {
     await nextApp.prepare();
 
-    app.post('/login', async (req, res) => {
-      const {username, password, urlSuccess, urlError} = req.body;
-      const auth = Auth('http://localhost:3112/login');
-      const authData = await auth({username, password});
-      const authToken = authData.authToken;
-      if (authToken) {
-        res.cookie('authToken', authToken);
-      } else {
-        res.clearCookie('authToken');
-      }
-      if ( req.header('Content-Type') === 'application/json') {
-        res.json({authToken});
-      } else {
-        if (authToken) {
-          res.writeHead(301, {Location: urlSuccess})
-        } else {
-          res.writeHead(301, {Location: urlError})
-        }
-        res.send();
-      }
+    app.post('/login-form', async (req, res) => {
+      nextApp.render(req, res, '/login-form');
     });
 
     app.get('*', (req, res) => {
