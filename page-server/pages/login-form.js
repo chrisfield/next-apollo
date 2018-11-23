@@ -21,8 +21,9 @@ class LoginForm extends React.PureComponent {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+    const {hostname} = window.location;
     const {username, password, urlSuccess} = namedValues(Array.from(event.target));
-    const authData = await auth({username, password});
+    const authData = await auth({hostname, username, password});
     Object.keys(authData).forEach(key => {
       const value = authData[key];
       if (value) {
@@ -41,9 +42,8 @@ class LoginForm extends React.PureComponent {
   render() {
     const {username, password} = this.props.formValues;
     return (
-      <form onSubmit={this.handleSubmit} method="POST" action="http://localhost:3102/login-form">
-        <input type="hidden" name="urlSuccess" value="http://localhost:3102/" />
-        <input type="hidden" name="urlError" value="http://localhost:3102/login-form?error=Y" />
+      <form onSubmit={this.handleSubmit} method="POST" action="/login-form">
+        <input type="hidden" name="urlSuccess" value="/" />
         <p>Username: <input name="username" defaultValue={username}/></p>
         <p>Password: <input name="password" defaultValue={password}/></p>
         {this.state.error && <p>{this.state.error}</p>}
@@ -54,8 +54,9 @@ class LoginForm extends React.PureComponent {
 };
 
 const handleSubmit = async (req, res) => {
+  const hostname = req.headers.host;
   const {username, password, urlSuccess} = req.body;
-  const authData = await auth({username, password});
+  const authData = await auth({hostname, username, password});
   Object.keys(authData).forEach(key => {
     const value = authData[key];
     if (value) {
@@ -75,7 +76,7 @@ const handleSubmit = async (req, res) => {
 };
 
 LoginForm.getInitialProps = async({req, res}) => {
-  if (req.method === 'POST') {
+  if (req && req.method === 'POST') {
     const isSuccess = await handleSubmit(req, res);
     if (isSuccess) {
       return {formValues: {}};

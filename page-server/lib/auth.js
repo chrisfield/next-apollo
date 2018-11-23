@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 
 const Auth = authUrl => (
-  async ({username, password}) => {
+  async ({hostname, username, password}) => {
     const response = await fetch(authUrl, {
       method: 'POST',
       withCredentials: true,
@@ -9,7 +9,7 @@ const Auth = authUrl => (
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({username, password})
+      body: JSON.stringify({hostname, username, password})
     });
     const authData = await response.json();
     console.log('the auth answer is: ', authData);

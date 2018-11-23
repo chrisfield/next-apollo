@@ -25,9 +25,9 @@ const start = async () => {
 
 
   server.post('/login', (req, res) => {
-    const {username, password} = req.body;
+    const {hostname, username, password} = req.body;
     const loginStatus = username === password; 
-    const authToken = loginStatus? `${username}abc`: '';
+    const authToken = loginStatus? `${username}abc@${hostname}`: '';
     res.json({authToken});
   });
 
