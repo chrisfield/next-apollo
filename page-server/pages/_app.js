@@ -25,17 +25,17 @@ class MyApp extends App {
   render () {
     const {Component, pageProps, apolloClient, store} = this.props
     return <Container>
-      <ReduxProvider store={store}>
-        <ApolloProvider client={apolloClient}>
+      <ApolloProvider client={apolloClient}>
+        <ReduxProvider store={store}>
           <Component {...pageProps} />
-        </ApolloProvider>
-      </ReduxProvider>
+        </ReduxProvider>
+      </ApolloProvider>
     </Container>
   }
 }
 
-export default withRedux(createStore)(
+export default withApolloClient(withRedux(createStore)(
   withReduxSaga({ async: true })(
-    withApolloClient(MyApp)
+    MyApp
   )
-);
+));

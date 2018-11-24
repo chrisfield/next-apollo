@@ -1,13 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {startClock, tickClock} from '../actions'
+import {startClock, tickClock, loadData} from '../actions'
 import Page from '../components/page'
 
 class Other extends React.Component {
   static async getInitialProps (props) {
     const { store, isServer } = props.ctx
     store.dispatch(tickClock(isServer))
+    store.dispatch(loadData())
     return { isServer }
   }
 
