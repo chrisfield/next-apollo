@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 import Router from 'next/router';
-import Auth from '../lib/auth';
 
 const namedValues = elements => elements.reduce((data, element) => {
   if (element.name) {
@@ -9,7 +8,22 @@ const namedValues = elements => elements.reduce((data, element) => {
   return data;
 }, {});
 
-const auth = Auth('http://localhost:3112/login');
+const authUrl = 'http://localhost:3112/login';
+
+const auth = async ({hostname, username, password}) => {
+  const response = await fetch(authUrl, {
+    method: 'POST',
+    withCredentials: true,
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({hostname, username, password})
+  });
+  const authData = await response.json();
+  console.log('the auth answer is: ', authData);
+  return authData;
+};
 
 class LoginForm extends React.PureComponent {
 

@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {startClock, tickClock, loadData} from '../actions'
-import Page from '../components/page'
+import {startClock, tickClock} from '../flux/clock/actions'
+import {loadData} from '../flux/placeholder/actions'
+import Page from '../components/Page'
 
 class Other extends React.Component {
   static async getInitialProps (props) {
