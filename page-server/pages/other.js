@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {startClock, tickClock} from '../flux/clock/actions'
 import {loadData} from '../flux/placeholder/actions'
 import Page from '../components/Page'
+import withPage from './_withPage';
 
 class Other extends React.Component {
   static async getInitialProps (props) {
@@ -22,4 +23,4 @@ class Other extends React.Component {
   }
 }
 
-export default connect()(Other)
+export default connect()(withPage(Other));
