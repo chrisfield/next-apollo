@@ -5,14 +5,14 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-const nextApp = next({dev: process.env.NODE_ENV !== 'production'});
+const nextApp = next({ dev: process.env.NODE_ENV !== 'production' });
 const handle = nextApp.getRequestHandler();
 
 const app = express();
 app.use(cookieParser());
 
 app.get('page.json', (req, res) => {
-  res.json({name: 'value from page.json route'});
+  res.json({ name: 'value from page.json route' });
 });
 
 app.use(cors());
@@ -30,30 +30,27 @@ const start = async () => {
       nextApp.render(req, res, '/login-form');
     });
 
+    const isInternalPath = path => (path.startsWith('/_next') || path.startsWith('_next'));
     app.get('*', (req, res) => {
       const requestPath = req.path;
       if (!isInternalPath(requestPath) && requestPath.endsWith('.html')) {
         req.customProps = {
           apiUrl,
-          requestPath
+          requestPath,
         };
         nextApp.render(req, res, '/dynamic');
       } else {
-        handle(req, res)
+        handle(req, res);
       }
     });
 
     await app.listen(process.env.PORT, process.env.HOST);
 
-    console.log(`Next online at ${process.env.HOST}:${process.env.PORT}`);
-    console.log(`     api url is ${apiUrl}`);
+    console.log(`Next online at ${process.env.HOST}:${process.env.PORT}`); /* eslint-disable-line no-console */
+    console.log(`     api url is ${apiUrl}`); /* eslint-disable-line no-console */
   } catch (e) {
-    console.error(e);
+    console.error(e); /* eslint-disable-line no-console */
   }
 };
 
-const isInternalPath = path => (path.startsWith('/_next') || path.startsWith('_next'));
-
 start();
-
-
