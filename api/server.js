@@ -38,7 +38,7 @@ const start = async () => {
 
   server.get('/pages', async (req, res) => {
     const pages = await Pages.find({}).toArray();
-    res.json({pages: pages});
+    res.json({ pages });
   });
 
 

@@ -29,3 +29,9 @@ npm run dev
 ```
 
 Access your app under `http://localhost:3102`
+
+## Linting
+
+```
+npm run lint -- file-or-dir-to-lint --fix
+```

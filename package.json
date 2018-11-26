@@ -6,12 +6,22 @@
   "scripts": {
     "bootstrap": "npm install && (cd page-server && npm install)",
     "dev": "concurrently \"docker-compose up --build\" \"cd page-server && npm run dev\" ",
-    "start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build"
+    "start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build",
+    "lint": "eslint"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^4.0.1"
-  }
+    "concurrently": "^4.0.1",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1"
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "db"
+  ]
 }
