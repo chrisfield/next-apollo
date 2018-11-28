@@ -1,8 +1,6 @@
-import React from 'react'
 import { connect } from 'react-redux'
-
-import PageCount from './PageCount'
 import Clock from './Clock'
+import PageCount from './PageCount'
 import Placeholder from './Placeholder'
 
 function Page ({ clock, placeholder, linkTo, title }) {

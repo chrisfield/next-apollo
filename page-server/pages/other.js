@@ -1,10 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-import {startClock, tickClock} from '../flux/clock/actions'
-import {loadData} from '../flux/placeholder/actions'
+import { startClock, tickClock } from '../flux/clock/actions'
+import { loadData } from '../flux/placeholder/actions'
 import Page from '../components/Page'
-import withPage from './_withPage';
+import withPage from './_withPage'
 
 class Other extends React.Component {
   static async getInitialProps (props) {
@@ -15,7 +15,7 @@ class Other extends React.Component {
   }
 
   componentDidMount () {
-    this.props.dispatch(startClock())
+    this.props.startClockSoon();
   }
 
   render () {
@@ -23,4 +23,23 @@ class Other extends React.Component {
   }
 }
 
-export default connect()(withPage(Other));
+const mapDispatchToProps = (dispatch) => {
+  // TODO investigate why this timeout workaround is needed
+
+  const startClockSoon = () => { 
+    setTimeout(dispatchStartClock, 100) 
+  }
+
+  const dispatchStartClock = () => {
+    try {
+      dispatch(startClock()) 
+    } catch (ex) {
+      console.log('retry startClock (workaround)', ex)
+      startClockSoon()
+    }
+  }
+
+  return { startClockSoon }
+}
+
+export default connect(undefined, mapDispatchToProps)(Other)

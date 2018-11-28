@@ -1,7 +1,7 @@
-import React from 'react'
+import { Fragment } from 'react'
 
-export default ({placeholder}) => (
-  <React.Fragment>
+export default ({ placeholder }) => (
+  <Fragment>
     <h2>JSON:</h2>
     {placeholder.data && (
       <pre>
@@ -16,5 +16,5 @@ export default ({placeholder}) => (
         font-size: 14px;
       }
     `}</style>
-  </React.Fragment>
+  </Fragment>
 )

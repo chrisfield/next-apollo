@@ -1,15 +1,12 @@
-import App, {Container} from 'next/app';
-import React from 'react';
-import withApolloClient from '../graph-ql/withApolloClient';
-import { ApolloProvider } from 'react-apollo';
+import App, { Container } from 'next/app'
+import withApolloClient from '../graph-ql/withApolloClient'
+import { ApolloProvider } from 'react-apollo'
 
+import { Provider as ReduxProvider } from 'react-redux'
+import withRedux from 'next-redux-wrapper'
+import withReduxSaga from 'next-redux-saga'
 
-import { Provider as ReduxProvider } from 'react-redux';
-import withRedux from 'next-redux-wrapper';
-import withReduxSaga from 'next-redux-saga';
-
-import createStore from '../flux/_lib/store';
-
+import createStore from '../flux/_lib/store'
 
 class MyApp extends App {
   static async getInitialProps ({ Component, ctx }) {
@@ -23,7 +20,7 @@ class MyApp extends App {
   }
 
   render () {
-    const {Component, pageProps, apolloClient, store} = this.props
+    const { Component, pageProps, apolloClient, store } = this.props
     return <Container>
       <ApolloProvider client={apolloClient}>
         <ReduxProvider store={store}>
@@ -38,4 +35,4 @@ export default withApolloClient(withRedux(createStore)(
   withReduxSaga({ async: true })(
     MyApp
   )
-));
+))

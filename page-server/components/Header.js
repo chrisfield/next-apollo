@@ -1,5 +1,6 @@
-import Link from 'next/link'
+import React from 'react'
 import { withRouter } from 'next/router'
+import Link from 'next/link'
 
 const Header = ({ router: { pathname } }) => (
   <header>
