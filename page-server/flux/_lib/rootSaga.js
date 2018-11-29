@@ -4,7 +4,10 @@ import clock from '../clock/sagas'
 import placeholder from '../placeholder/sagas'
 
 function * rootSaga () {
-  yield all([clock, placeholder])
+  yield all([
+    clock,
+    placeholder
+  ])
 }
 
 export default rootSaga

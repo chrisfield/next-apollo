@@ -32,7 +32,11 @@ const start = async () => {
     const isInternalPath = path => (path.startsWith('/_next') || path.startsWith('_next'))
     app.get('*', (req, res) => {
       const requestPath = req.path
-      if (!isInternalPath(requestPath) && requestPath.endsWith('.html')) {
+      console.log('requestPath', requestPath);
+      if (!isInternalPath(requestPath) && (
+        requestPath === '/' ||
+        requestPath.endsWith('.html')
+      )) {
         req.customProps = {
           apiUrl,
           requestPath
