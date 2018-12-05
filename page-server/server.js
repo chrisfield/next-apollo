@@ -39,7 +39,7 @@ const start = async () => {
       )) {
         req.customProps = {
           apiUrl,
-          requestPath
+          requestPath: requestPath.substring(0, requestPath.length -5 )
         }
         nextApp.render(req, res, '/dynamic')
       } else {

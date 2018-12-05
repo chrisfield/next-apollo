@@ -4,13 +4,18 @@ import { withRouter } from 'next/router'
 import Link from 'next/link'
 
 const Header = ({ router: { pathname }, requestPath }) => {
+
   if (pathname === '/dynamic') {
     pathname = requestPath
   }
   return (
     <header>
-      <Link prefetch href='/'>
+      rr{requestPath}RR
+      <Link href='/'>
         <a className={pathname === '/' ? 'is-active' : ''}>Home</a>
+      </Link>
+      <Link href='/page-one.html'>
+        <a className={pathname === '/page-one' ? 'is-active' : ''}>Page One</a>
       </Link>
       <Link prefetch href='/posts'>
         <a className={pathname === '/posts' ? 'is-active' : ''}>Posts</a>
@@ -36,7 +41,7 @@ const Header = ({ router: { pathname }, requestPath }) => {
 }
 
 const mapStateToProps = (state) => ({
-  requestPath: state.dynamicPage.requestPath
+  requestPath: state.session.requestContext.path
 })
 
 export default withRouter(connect(mapStateToProps)(Header))

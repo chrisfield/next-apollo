@@ -4,14 +4,19 @@ import fetch from 'isomorphic-unfetch'
 import App from '../components/App'
 import Header from '../components/Header'
 import { addDynamicPageValues } from '../flux/dynamic-page/actions'
+import Widget from '../components/widgets/lib/loader'
+import Head from 'next/head'
+import withSession from './_with-session'
 
-const Index = ({ router: { pathname }, requestPath, pages }) => (
+const Index = ({ requestPath, pages }) => (
   <App>
-    <Header/>
-    Hello from: {requestPath}, pages{JSON.stringify(pages)}
-    <p>
-      pathname: {pathname}
-    </p>
+    <Head><title>{pages['pages'][0].title}</title></Head>
+    <Header />
+    <Widget widgetPath={requestPath}>
+      <div> little one</div> 
+    </Widget>
+    {pages['pages'][0].title}
+    Hello from: {requestPath}, pages{JSON.stringify(pages)}eee
   </App>
 )
 
@@ -22,4 +27,4 @@ Index.getInitialProps = async ({ ctx: { req, store } }) => {
   return { requestPath: req.customProps.requestPath, pages }
 }
 
-export default withRouter(connect()(Index))
+export default withSession(withRouter(connect()(Index)))
