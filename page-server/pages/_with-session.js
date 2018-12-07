@@ -1,5 +1,4 @@
 import React from 'react'
-import { withRouter } from 'next/router'
 import { setEnv } from '../flux/env/actions'
 import { sessionLoad } from '../flux/session/actions'
 
@@ -38,7 +37,7 @@ const withSession = function (Child) {
       return <Child {...this.props}/>
     }
   }
-  return withRouter(Higher)
+  return Higher
 }
 
 export default withSession

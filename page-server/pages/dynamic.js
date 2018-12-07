@@ -1,5 +1,3 @@
-import { withRouter } from 'next/router'
-import { connect } from 'react-redux'
 import fetch from 'isomorphic-unfetch'
 import App from '../components/App'
 import Header from '../components/Header'
@@ -21,7 +19,7 @@ const Index = ({ requestPath, pages }) => (
 )
 
 Index.getInitialProps = async (props) => {
-  const { ctx: { req, store } } = props
+  const { ctx: { store } } = props
   const apiUrl = store.getState().env.apiUrl
   const { requestPath } = store.getState().session
   const pagesResponse = await fetch(`${apiUrl}pages`)
@@ -30,4 +28,4 @@ Index.getInitialProps = async (props) => {
   return { requestPath, pages }
 }
 
-export default withSession(withRouter(connect()(Index)))
+export default withSession(Index)

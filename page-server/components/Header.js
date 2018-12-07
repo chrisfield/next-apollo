@@ -10,7 +10,7 @@ const Header = ({ router: { pathname }, requestPath }) => {
   }
   return (
     <header>
-      rp:{requestPath} p: {pathname}
+      <div>{pathname} </div>
       <Link href='/'>
         <a className={pathname === '/' ? 'is-active' : ''}>Home</a>
       </Link>
@@ -22,6 +22,9 @@ const Header = ({ router: { pathname }, requestPath }) => {
       </Link>
       <Link prefetch href='/about'>
         <a className={pathname === '/about' ? 'is-active' : ''}>About</a>
+      </Link>
+      <Link prefetch href='/other'>
+        <a className={pathname === '/other' ? 'is-active' : ''}>Other</a>
       </Link>
       <style jsx>{`
         header {
@@ -41,7 +44,7 @@ const Header = ({ router: { pathname }, requestPath }) => {
 }
 
 const mapStateToProps = (state) => ({
-  requestPath: state.session.path
+  requestPath: state.session.requestPath
 })
 
 export default withRouter(connect(mapStateToProps)(Header))

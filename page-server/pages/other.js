@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { startClock, tickClock } from '../flux/clock/actions'
 import { loadData } from '../flux/placeholder/actions'
 import Page from '../components/Page'
+import Header from '../components/Header'
 import withSession from './_with-session'
 
 class Other extends React.Component {
@@ -19,7 +20,12 @@ class Other extends React.Component {
   }
 
   render () {
-    return <Page title='Other Page' linkTo='/' NavigateTo='Index Page' />
+    return (
+      <div>
+        <Header />
+        <Page title='Other Page' linkTo='/' NavigateTo='Index Page' />
+      </div>
+    )
   }
 }
 
@@ -42,4 +48,4 @@ const mapDispatchToProps = (dispatch) => {
   return { startClockSoon }
 }
 
-export default connect(undefined, mapDispatchToProps)(withSession(Other))
+export default connect(undefined, mapDispatchToProps)(Other)
