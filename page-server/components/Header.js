@@ -10,12 +10,12 @@ const Header = ({ router: { pathname }, requestPath }) => {
   }
   return (
     <header>
-      rr{requestPath}RR
+      rp:{requestPath} p: {pathname}
       <Link href='/'>
         <a className={pathname === '/' ? 'is-active' : ''}>Home</a>
       </Link>
       <Link href='/page-one.html'>
-        <a className={pathname === '/page-one' ? 'is-active' : ''}>Page One</a>
+        <a className={pathname === '/page-one.html' ? 'is-active' : ''}>Page One</a>
       </Link>
       <Link prefetch href='/posts'>
         <a className={pathname === '/posts' ? 'is-active' : ''}>Posts</a>
@@ -41,7 +41,7 @@ const Header = ({ router: { pathname }, requestPath }) => {
 }
 
 const mapStateToProps = (state) => ({
-  requestPath: state.session.requestContext.path
+  requestPath: state.session.path
 })
 
 export default withRouter(connect(mapStateToProps)(Header))

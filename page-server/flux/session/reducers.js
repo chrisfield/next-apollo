@@ -7,7 +7,7 @@ function reducer (state = initialState, action) {
     case actionTypes.SESSION_LOAD:
       return {
         ...state,
-        requestContext: action.requestContext
+        ...action.session
       }
 
     case actionTypes.USER_LOAD_SUCCESS:

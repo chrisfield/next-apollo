@@ -9,10 +9,10 @@ export function userLogout () {
   return { type: actionTypes.USER_LOGOUT }
 }
 
-export function sessionLoad (requestContext) {
+export function sessionLoad (session) {
   return {
     type: actionTypes.SESSION_LOAD,
-    requestContext
+    session
   }
 }
 

@@ -1,18 +1,32 @@
 import React from 'react'
+import { withRouter } from 'next/router'
+import { setEnv } from '../flux/env/actions'
 import { sessionLoad } from '../flux/session/actions'
 
-const requestContext = (req) => {
+const getEnv = () => {
+  return {
+    apiUrl: process.env.API_URL
+  }
+}
+
+const sessionContext = (req) => {
+  console.log(req.url)
   return {
     token: 'cookie-val',
-    path: req.customProps.requestPath || '/'
+    requestPath: req.url
   }
 }
 
 const withSession = function (Child) {
-  return class Higher extends React.Component {
+  class Higher extends React.Component {
     static async getInitialProps (props) {
-      const { ctx: { store, req } } = props
-      store.dispatch(sessionLoad(requestContext(req)))
+      console.log('router', props.router)
+      const { ctx: { isServer, store, req } } = props
+      console.log('withSession isServer: ', isServer)
+      if (isServer) {
+        store.dispatch(setEnv(getEnv()))
+        store.dispatch(sessionLoad(sessionContext(req)))
+      }
       let pageProps = {}
       if (Child.getInitialProps) {
         pageProps = Child.getInitialProps(props)
@@ -24,6 +38,7 @@ const withSession = function (Child) {
       return <Child {...this.props}/>
     }
   }
+  return withRouter(Higher)
 }
 
 export default withSession

@@ -9,7 +9,7 @@ export default (props) => {
   const { widgetPath, ...otherProps } = props
 
   switch (widgetPath) {
-    case '/page-one': {
+    case '/page-one.html': {
       return <PageOne {...otherProps} />
     }
     default: {

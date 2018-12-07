@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const start = async () => {
-  const apiUrl = process.env.API_URL
   try {
     await nextApp.prepare()
 
@@ -37,10 +36,6 @@ const start = async () => {
         requestPath === '/' ||
         requestPath.endsWith('.html')
       )) {
-        req.customProps = {
-          apiUrl,
-          requestPath: requestPath.substring(0, requestPath.length -5 )
-        }
         nextApp.render(req, res, '/dynamic')
       } else {
         handle(req, res)
@@ -50,7 +45,6 @@ const start = async () => {
     await app.listen(process.env.PORT, process.env.HOST)
 
     console.log(`Next online at ${process.env.HOST}:${process.env.PORT}`) /* eslint-disable-line no-console */
-    console.log(`     api url is ${apiUrl}`) /* eslint-disable-line no-console */
   } catch (e) {
     console.error(e) /* eslint-disable-line no-console */
   }

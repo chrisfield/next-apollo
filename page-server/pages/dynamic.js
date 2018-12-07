@@ -20,11 +20,14 @@ const Index = ({ requestPath, pages }) => (
   </App>
 )
 
-Index.getInitialProps = async ({ ctx: { req, store } }) => {
-  const pagesResponse = await fetch(`${req.customProps.apiUrl}pages`)
+Index.getInitialProps = async (props) => {
+  const { ctx: { req, store } } = props
+  const apiUrl = store.getState().env.apiUrl
+  const { requestPath } = store.getState().session
+  const pagesResponse = await fetch(`${apiUrl}pages`)
   const pages = await pagesResponse.json()
-  store.dispatch(addDynamicPageValues({ requestPath: req.customProps.requestPath }))
-  return { requestPath: req.customProps.requestPath, pages }
+  store.dispatch(addDynamicPageValues({}))
+  return { requestPath, pages }
 }
 
 export default withSession(withRouter(connect()(Index)))

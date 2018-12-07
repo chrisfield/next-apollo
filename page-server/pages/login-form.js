@@ -90,6 +90,7 @@ const handleSubmit = async (req, res) => {
 }
 
 LoginForm.getInitialProps = async ({ req, res }) => {
+  console.log('gip login')
   if (req && req.method === 'POST') {
     const isSuccess = await handleSubmit(req, res)
     if (isSuccess) {

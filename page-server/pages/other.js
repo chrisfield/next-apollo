@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { startClock, tickClock } from '../flux/clock/actions'
 import { loadData } from '../flux/placeholder/actions'
 import Page from '../components/Page'
-import withPage from './_withPage'
+import withSession from './_with-session'
 
 class Other extends React.Component {
   static async getInitialProps (props) {
@@ -42,4 +42,4 @@ const mapDispatchToProps = (dispatch) => {
   return { startClockSoon }
 }
 
-export default connect(undefined, mapDispatchToProps)(Other)
+export default connect(undefined, mapDispatchToProps)(withSession(Other))
