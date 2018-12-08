@@ -15,13 +15,16 @@ const Header = ({ router: { pathname }, requestPath }) => {
         <a className={pathname === '/' ? 'is-active' : ''}>Home</a>
       </Link>
       <Link href='/page-one.html'>
-        <a className={pathname === '/page-one.html' ? 'is-active' : ''}>Page One</a>
+        <a className={pathname === '/page-one.html' ? 'is-active' : ''}>Page-One</a>
       </Link>
       <Link prefetch href='/posts'>
         <a className={pathname === '/posts' ? 'is-active' : ''}>Posts</a>
       </Link>
       <Link prefetch href='/about'>
         <a className={pathname === '/about' ? 'is-active' : ''}>About</a>
+      </Link>
+      <Link prefetch href='/themepage'>
+        <a className={pathname === '/themepage' ? 'is-active' : ''}>Themepage</a>
       </Link>
       <Link prefetch href='/other'>
         <a className={pathname === '/other' ? 'is-active' : ''}>Other</a>
