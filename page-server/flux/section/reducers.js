@@ -4,10 +4,15 @@ const initialState = {}
 
 function reducer (state = initialState, action) {
   switch (action.type) {
-    case actionTypes.ADD_DYNAMIC_PAGE_VALUES:
+    case actionTypes.LOAD_SECTION:
       return {
         ...state,
-        ...action.values
+        path: action.path
+      }
+
+    case actionTypes.LOAD_SECTION_SUCCESS:
+      return {
+        ...action.section
       }
 
     default:
