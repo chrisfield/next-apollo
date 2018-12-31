@@ -9,3 +9,8 @@ services:
     env_file: ./api/.env
     ports:
       - 3112:3112
+  graphql-server:
+    build: ./graphql-server
+    env_file: ./graphql-server/.env
+    ports:
+      - 4000:4000      
